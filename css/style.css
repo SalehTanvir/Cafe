@@ -19,6 +19,17 @@ nav a {
   text-decoration: none;
 }
 
+.user-display {
+  margin-left: 15px;
+  color: #f3e7df;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.is-hidden {
+  display: none;
+}
+
 .logo {
   height: 40px;
 }

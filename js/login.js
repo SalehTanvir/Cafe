@@ -27,9 +27,9 @@ if (form) {
 
     try {
       await loginUser(email, password);
-      setStatus("Login successful. Redirecting to order page...", "success");
+      setStatus("Login successful. Redirecting to home page...", "success");
       window.setTimeout(() => {
-        window.location.href = "order.html";
+        window.location.href = "index.html";
       }, 600);
     } catch (error) {
       setStatus(error?.message || "Login failed.", "error");
