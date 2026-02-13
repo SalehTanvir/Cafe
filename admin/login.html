@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Café Aroma</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-login-container">
+  <div class="admin-login-card">
+    <h1>Admin Login</h1>
+    <p>Enter admin credentials to access the dashboard.</p>
+
+    <form id="adminLoginForm" class="auth-form">
+      <input type="email" id="adminEmail" placeholder="Admin Email" required>
+      <input type="password" id="adminPassword" placeholder="Password" required>
+      <button type="submit">Sign In as Admin</button>
+    </form>
+
+    <div id="adminLoginStatus" class="auth-status"></div>
+  </div>
+</div>
+
+<script type="module" src="../js/admin.js"></script>
+</body>
+</html>

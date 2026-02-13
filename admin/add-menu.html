@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Menu Item | Café Aroma Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-container">
+  <header class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <div class="admin-header-actions">
+      <span id="adminUserDisplay" class="admin-user-name"></span>
+      <a href="#" id="adminLogout" class="admin-logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <nav class="admin-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="add-menu.html" class="active">Add Menu Item</a>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-card">
+      <h2>Add New Menu Item</h2>
+
+      <form id="addMenuForm" class="admin-form">
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" placeholder="e.g., Espresso" required>
+
+        <label for="itemPrice">Price (৳)</label>
+        <input type="number" id="itemPrice" placeholder="e.g., 4.50" step="0.01" min="0" required>
+
+        <label for="itemImage">Image URL</label>
+        <input type="url" id="itemImage" placeholder="https://example.com/image.jpg" required>
+
+        <button type="submit" class="btn">Add Item</button>
+      </form>
+
+      <div id="addMenuStatus" class="auth-status"></div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="../js/admin.js"></script>
+</body>
+</html>

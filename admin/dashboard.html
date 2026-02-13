@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Café Aroma</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-container">
+  <header class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <div class="admin-header-actions">
+      <span id="adminUserDisplay" class="admin-user-name"></span>
+      <a href="#" id="adminLogout" class="admin-logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <nav class="admin-nav">
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="add-menu.html">Add Menu Item</a>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-card">
+      <h2>Welcome to Admin Panel</h2>
+      <p>Use the navigation to manage cafe menu items.</p>
+      <a href="add-menu.html" class="btn">Add New Item</a>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="../js/admin.js"></script>
+</body>
+</html>

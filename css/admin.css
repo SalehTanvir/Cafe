@@ -1,0 +1,151 @@
+/* Admin Login Page */
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #6f4e37 0%, #3e2723 100%);
+}
+
+.admin-login-card {
+  width: min(420px, 100%);
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.admin-login-card h1 {
+  margin: 0 0 8px;
+  color: #3e2723;
+}
+
+.admin-login-card p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Admin Dashboard Layout */
+.admin-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.admin-header {
+  background: #3e2723;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-user-name {
+  font-size: 14px;
+  color: #f3e7df;
+}
+
+.admin-logout-btn {
+  background: #6f4e37;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.admin-logout-btn:hover {
+  background: #8b6347;
+}
+
+.admin-nav {
+  background: white;
+  padding: 12px 24px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 20px;
+}
+
+.admin-nav a {
+  text-decoration: none;
+  color: #666;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.admin-nav a.active,
+.admin-nav a:hover {
+  background: #6f4e37;
+  color: white;
+}
+
+.admin-main {
+  flex: 1;
+  padding: 32px 24px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.admin-card {
+  background: white;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.admin-card h2 {
+  margin: 0 0 16px;
+  color: #3e2723;
+}
+
+.admin-card p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.admin-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.admin-form label {
+  font-weight: 600;
+  color: #3e2723;
+  margin-bottom: -8px;
+}
+
+.admin-form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.admin-form input:focus {
+  outline: none;
+  border-color: #6f4e37;
+}
+
+.admin-form button {
+  margin-top: 8px;
+}
