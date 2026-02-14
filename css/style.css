@@ -216,3 +216,59 @@ nav a {
 .auth-link a {
   color: #6f4e37;
 }
+
+/* Footer */
+footer {
+  background: #3e2723;
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-section h3,
+.footer-section h4 {
+  margin: 0 0 12px;
+  color: #f3e7df;
+}
+
+.footer-section p {
+  margin: 8px 0;
+  color: #d7ccc8;
+  font-size: 14px;
+}
+
+.footer-section a {
+  display: block;
+  color: #d7ccc8;
+  text-decoration: none;
+  margin: 8px 0;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-section a:hover {
+  color: #f3e7df;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #d7ccc8;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
