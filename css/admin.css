@@ -134,18 +134,86 @@
   margin-bottom: -8px;
 }
 
-.admin-form input {
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
 }
 
-.admin-form input:focus {
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
   outline: none;
   border-color: #6f4e37;
 }
 
 .admin-form button {
   margin-top: 8px;
+}
+
+.admin-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn.btn-secondary {
+  background: #d8c7bb;
+  color: #3e2723;
+}
+
+.admin-menu-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.admin-menu-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.admin-menu-item img {
+  width: 80px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.admin-menu-item h3 {
+  margin: 0 0 4px;
+  color: #3e2723;
+}
+
+.admin-menu-item p {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.admin-menu-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-edit-card {
+  display: none;
+}
+
+.admin-edit-card.is-visible {
+  display: block;
 }

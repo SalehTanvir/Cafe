@@ -29,6 +29,43 @@
       <p>Use the navigation to manage cafe menu items.</p>
       <a href="add-menu.html" class="btn">Add New Item</a>
     </div>
+
+    <div class="admin-card admin-edit-card" id="adminEditCard">
+      <h2>Edit Menu Item</h2>
+      <form id="editMenuForm" class="admin-form">
+        <input type="hidden" id="editItemId">
+
+        <label for="editItemName">Item Name</label>
+        <input type="text" id="editItemName" required>
+
+        <label for="editItemPrice">Price (৳)</label>
+        <input type="number" id="editItemPrice" step="0.01" min="0" required>
+
+        <label for="editItemImage">Image URL</label>
+        <input type="url" id="editItemImage" required>
+
+        <label for="editItemType">Item Type</label>
+        <select id="editItemType" required>
+          <option value="Coffee">Coffee</option>
+          <option value="Pizza">Pizza</option>
+          <option value="Burger">Burger</option>
+        </select>
+
+        <label for="editItemDescription">Description</label>
+        <textarea id="editItemDescription" rows="4" required></textarea>
+
+        <div class="admin-form-actions">
+          <button type="submit" class="btn">Save Changes</button>
+          <button type="button" class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+        </div>
+      </form>
+      <div id="editMenuStatus" class="auth-status"></div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Menu Items</h2>
+      <div id="adminMenuList" class="admin-menu-list"></div>
+    </div>
   </main>
 </div>
 

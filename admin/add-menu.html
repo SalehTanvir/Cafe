@@ -37,6 +37,17 @@
         <label for="itemImage">Image URL</label>
         <input type="url" id="itemImage" placeholder="https://example.com/image.jpg" required>
 
+        <label for="itemType">Item Type</label>
+        <select id="itemType" required>
+          <option value="" disabled selected>Select a type</option>
+          <option value="Coffee">Coffee</option>
+          <option value="Pizza">Pizza</option>
+          <option value="Burger">Burger</option>
+        </select>
+
+        <label for="itemDescription">Description</label>
+        <textarea id="itemDescription" rows="4" placeholder="Short description of the item" required></textarea>
+
         <button type="submit" class="btn">Add Item</button>
       </form>
 
