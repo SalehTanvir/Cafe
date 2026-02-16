@@ -19,6 +19,12 @@
     <a href="register.html" id="registerLink">Register</a>
     <span id="userDisplay" class="user-display is-hidden"></span>
     <a href="#" id="logoutLink" class="is-hidden">Logout</a>
+    <button class="cart-toggle" id="cartToggle" type="button" aria-label="Open cart" aria-controls="cartPanel">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45a1 1 0 0 0 .9 1.5h12v-2h-10.42l.55-1h7.87a1 1 0 0 0 .92-.63l3.1-7.37a1 1 0 0 0-.92-1.37h-14.3l-.6-1.17a1 1 0 0 0-.9-.53zm3 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
   </nav>
 </header>
 
@@ -63,6 +69,7 @@
 </footer>
 
 <script type="module" src="js/menu.js"></script>
+<script type="module" src="js/cart.js"></script>
 <script type="module" src="js/logout.js"></script>
 
 </body>

@@ -39,6 +39,7 @@ function addToCart(item) {
   }
 
   saveCart(cart);
+  window.dispatchEvent(new CustomEvent("cart:updated"));
 }
 
 function ensureDetailsModal() {

@@ -6,12 +6,19 @@
 </head>
 <body>
 
-<h2>Place Your Order</h2>
+<div class="order-header">
+  <button type="button" class="back-btn" id="backButton">&larr; Back</button>
+  <h2>Place Your Order</h2>
+</div>
 
 <section class="cart-preview">
   <h3>Your Cart</h3>
   <p id="cart-message"></p>
   <ul id="cart-items" class="cart-items"></ul>
+  <div class="cart-summary">
+    <span>Total</span>
+    <strong id="cart-total">$0.00</strong>
+  </div>
 </section>
 
 <div id="auth-message" class="auth-message"></div>
