@@ -1,4 +1,4 @@
-import { auth } from "./firebase-config.js";
+import { auth, db } from "./firebase-config.js";
 import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
@@ -6,6 +6,11 @@ import {
 	updateProfile,
 	signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+	collection, 
+	doc, 
+	setDoc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 export function onAuthReady() {
 	return new Promise(resolve => {
@@ -29,6 +34,14 @@ export async function registerUser(name, email, password) {
 	if (name) {
 		await updateProfile(result.user, { displayName: name });
 	}
+	
+	// Save user data to Firestore
+	await setDoc(doc(db, "users", result.user.uid), {
+		name: name || "",
+		email: email,
+		createdAt: new Date()
+	});
+	
 	return result;
 }
 

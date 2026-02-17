@@ -1,46 +1,13 @@
 import { db } from "./firebase-config.js";
 import { collection, getDocs } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { addToCart } from "./cart-firestore.js";
 
 const menuContainer = document.getElementById("menu-container");
 const menuSearch = document.getElementById("menuSearch");
-const CART_KEY = "cafeCart";
 let menuItems = [];
 let detailsModal = null;
 let modalContent = null;
-
-function getCart() {
-  try {
-    const stored = localStorage.getItem(CART_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-function addToCart(item) {
-  const cart = getCart();
-  const existing = cart.find(entry => entry.id === item.id);
-
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-      quantity: 1
-    });
-  }
-
-  saveCart(cart);
-  window.dispatchEvent(new CustomEvent("cart:updated"));
-}
 
 function ensureDetailsModal() {
   if (detailsModal) {
@@ -86,8 +53,8 @@ function openDetailsModal(item) {
     </div>
   `;
 
-  modalContent.querySelector("#modalOrderBtn").addEventListener("click", () => {
-    addToCart(item);
+  modalContent.querySelector("#modalOrderBtn").addEventListener("click", async () => {
+    await addToCart(item);
     window.location.href = "order.html";
   });
 
@@ -113,9 +80,9 @@ function createCard(item) {
   `;
 
   const cartButton = card.querySelector(".cart-btn");
-  cartButton.addEventListener("click", (event) => {
+  cartButton.addEventListener("click", async (event) => {
     event.stopPropagation();
-    addToCart(item);
+    await addToCart(item);
   });
 
   card.addEventListener("click", () => openDetailsModal(item));

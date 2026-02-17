@@ -10,7 +10,9 @@ import {
   getDocs,
   doc,
   updateDoc,
-  deleteDoc
+  deleteDoc,
+  query,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Admin email whitelist (only this email can access admin)
@@ -300,5 +302,156 @@ if (cancelEditBtn) {
       editMenuForm.reset();
     }
     setEditCardVisible(false);
+  });
+}
+
+// Dashboard Statistics and User Management
+const userCount = document.getElementById("userCount");
+const orderCount = document.getElementById("orderCount");
+const menuCount = document.getElementById("menuCount");
+const usersList = document.getElementById("usersList");
+const ordersList = document.getElementById("ordersList");
+
+async function loadDashboardStats() {
+  try {
+    // Load user count
+    const usersSnapshot = await getDocs(collection(db, "users"));
+    if (userCount) {
+      userCount.textContent = usersSnapshot.size;
+    }
+
+    // Load order count
+    const ordersSnapshot = await getDocs(collection(db, "orders"));
+    if (orderCount) {
+      orderCount.textContent = ordersSnapshot.size;
+    }
+
+    // Load menu count
+    const menuSnapshot = await getDocs(collection(db, "menu"));
+    if (menuCount) {
+      menuCount.textContent = menuSnapshot.size;
+    }
+  } catch (error) {
+    console.error("Error loading stats:", error);
+  }
+}
+
+async function loadUsers() {
+  if (!usersList) {
+    return;
+  }
+
+  try {
+    const snapshot = await getDocs(collection(db, "users"));
+    
+    if (snapshot.empty) {
+      usersList.innerHTML = "<p>No users found.</p>";
+      return;
+    }
+
+    usersList.innerHTML = "";
+    snapshot.forEach(docItem => {
+      const userData = docItem.data();
+      const userDiv = document.createElement("div");
+      userDiv.className = "user-item";
+      userDiv.innerHTML = `
+        <div class="user-info">
+          <strong>${userData.name || "N/A"}</strong>
+          <span>${userData.email || "N/A"}</span>
+          <span class="user-date">Joined: ${userData.createdAt ? new Date(userData.createdAt.seconds * 1000).toLocaleDateString() : "N/A"}</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-small" data-user-id="${docItem.id}">Delete User</button>
+      `;
+
+      const deleteBtn = userDiv.querySelector("button");
+      deleteBtn.addEventListener("click", async () => {
+        const confirmed = window.confirm(`Delete user ${userData.name || userData.email}? This cannot be undone.`);
+        if (!confirmed) {
+          return;
+        }
+
+        try {
+          await deleteDoc(doc(db, "users", docItem.id));
+          await loadUsers();
+          await loadDashboardStats();
+        } catch (error) {
+          alert("Failed to delete user: " + error.message);
+        }
+      });
+
+      usersList.appendChild(userDiv);
+    });
+  } catch (error) {
+    console.error("Error loading users:", error);
+    usersList.innerHTML = "<p>Error loading users.</p>";
+  }
+}
+
+async function loadOrders() {
+  if (!ordersList) {
+    return;
+  }
+
+  try {
+    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+    
+    if (snapshot.empty) {
+      ordersList.innerHTML = "<p>No orders found.</p>";
+      return;
+    }
+
+    ordersList.innerHTML = "";
+    snapshot.forEach(docItem => {
+      const orderData = docItem.data();
+      const orderDiv = document.createElement("div");
+      orderDiv.className = "order-item";
+      
+      let itemsHtml = "";
+      if (orderData.items && orderData.items.length > 0) {
+        itemsHtml = orderData.items.map(item => 
+          `<li>${item.name} x${item.quantity} - ৳${(item.price * item.quantity).toFixed(2)}</li>`
+        ).join("");
+      }
+
+      orderDiv.innerHTML = `
+        <div class="order-header">
+          <div>
+            <strong>Order #${docItem.id.substring(0, 8)}</strong>
+            <span class="order-customer">${orderData.customerName || "N/A"}</span>
+            <span class="order-email">${orderData.userEmail || "N/A"}</span>
+          </div>
+          <div class="order-meta">
+            <span class="order-status status-${orderData.status || 'pending'}">${orderData.status || "pending"}</span>
+            <span class="order-date">${orderData.createdAt ? new Date(orderData.createdAt.seconds * 1000).toLocaleString() : "N/A"}</span>
+          </div>
+        </div>
+        <div class="order-items">
+          <strong>Items:</strong>
+          <ul>${itemsHtml}</ul>
+        </div>
+        <div class="order-total">
+          <strong>Total: ৳${orderData.totalAmount ? orderData.totalAmount.toFixed(2) : "0.00"}</strong>
+        </div>
+      `;
+
+      ordersList.appendChild(orderDiv);
+    });
+  } catch (error) {
+    console.error("Error loading orders:", error);
+    ordersList.innerHTML = "<p>Error loading orders.</p>";
+  }
+}
+
+// Initialize dashboard
+if (usersList || ordersList || userCount) {
+  onAuthStateChanged(auth, (user) => {
+    if (!checkAdminAuth(user)) {
+      return;
+    }
+
+    loadDashboardStats();
+    loadUsers();
+    loadOrders();
   });
 }

@@ -24,10 +24,35 @@
   </nav>
 
   <main class="admin-main">
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <p class="stat-number" id="userCount">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Orders</h3>
+        <p class="stat-number" id="orderCount">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Menu Items</h3>
+        <p class="stat-number" id="menuCount">0</p>
+      </div>
+    </div>
+
     <div class="admin-card">
       <h2>Welcome to Admin Panel</h2>
       <p>Use the navigation to manage cafe menu items.</p>
       <a href="add-menu.html" class="btn">Add New Item</a>
+    </div>
+
+    <div class="admin-card">
+      <h2>Registered Users</h2>
+      <div id="usersList" class="users-list"></div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Order History</h2>
+      <div id="ordersList" class="orders-list"></div>
     </div>
 
     <div class="admin-card admin-edit-card" id="adminEditCard">

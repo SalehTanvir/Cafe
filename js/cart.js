@@ -1,4 +1,5 @@
-const CART_KEY = "cafeCart";
+import { getCart, updateCartItemQuantity, subscribeToCart } from "./cart-firestore.js";
+
 const cartToggle = document.getElementById("cartToggle");
 const cartCount = document.getElementById("cartCount");
 let cartPanel = null;
@@ -6,30 +7,20 @@ let cartPanelMessage = null;
 let cartPanelItems = null;
 let cartPanelTotal = null;
 let cartPanelOrderButton = null;
-
-function getCart() {
-  try {
-    const stored = localStorage.getItem(CART_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  updateCartBadge(cart);
-  renderCartPanel(cart);
-}
+let cartUnsubscribe = null;
 
 function formatPrice(value) {
   const amount = Number(value) || 0;
   return `৳ ${amount.toFixed(2)}`;
 }
 
-function updateCartBadge(cart = getCart()) {
+async function updateCartBadge(cart = null) {
   if (!cartCount) {
     return;
+  }
+
+  if (!cart) {
+    cart = await getCart();
   }
 
   const totalItems = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
@@ -95,25 +86,17 @@ function ensureCartPanel() {
   document.body.appendChild(cartPanel);
 }
 
-function updateQuantity(itemId, delta) {
-  const cart = getCart();
-  const item = cart.find(entry => entry.id === itemId);
-  if (!item) {
-    return;
-  }
-
-  item.quantity = (Number(item.quantity) || 0) + delta;
-  if (item.quantity <= 0) {
-    const index = cart.indexOf(item);
-    cart.splice(index, 1);
-  }
-
-  saveCart(cart);
+async function updateQuantity(itemId, delta) {
+  await updateCartItemQuantity(itemId, delta);
 }
 
-function renderCartPanel(cart = getCart()) {
+async function renderCartPanel(cart = null) {
   if (!cartPanelItems || !cartPanelMessage || !cartPanelTotal) {
     return;
+  }
+
+  if (!cart) {
+    cart = await getCart();
   }
 
   cartPanelItems.innerHTML = "";
@@ -176,18 +159,18 @@ if (cartToggle) {
   });
 }
 
+// Initialize cart display
 updateCartBadge();
 
-window.addEventListener("storage", (event) => {
-  if (event.key !== CART_KEY) {
-    return;
-  }
-
-  updateCartBadge();
-  renderCartPanel();
+// Subscribe to real-time cart updates
+cartUnsubscribe = subscribeToCart((cart) => {
+  updateCartBadge(cart);
+  renderCartPanel(cart);
 });
 
-window.addEventListener("cart:updated", () => {
-  updateCartBadge();
-  renderCartPanel();
+// Cleanup on page unload
+window.addEventListener("beforeunload", () => {
+  if (cartUnsubscribe) {
+    cartUnsubscribe();
+  }
 });
