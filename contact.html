@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Café Aroma</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+
+<header>
+  <img src="assets/images/logo.png" class="logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html" id="loginLink">Login</a>
+    <a href="register.html" id="registerLink">Register</a>
+    <span id="userDisplay" class="user-display is-hidden"></span>
+    <a href="#" id="logoutLink" class="is-hidden">Logout</a>
+    <button class="cart-toggle" id="cartToggle" type="button" aria-label="Open cart" aria-controls="cartPanel">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45a1 1 0 0 0 .9 1.5h12v-2h-10.42l.55-1h7.87a1 1 0 0 0 .92-.63l3.1-7.37a1 1 0 0 0-.92-1.37h-14.3l-.6-1.17a1 1 0 0 0-.9-.53zm3 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </nav>
+</header>
+
+<section class="contact-hero">
+  <h1>Get in Touch</h1>
+  <p>We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+</section>
+
+<section class="contact-container">
+  <div class="contact-content">
+    <!-- Contact Form -->
+    <div class="contact-form-wrapper">
+      <h2>Send us a Message</h2>
+      <form id="contactForm" class="contact-form">
+        <div class="form-group">
+          <label for="contactName">Your Name</label>
+          <input type="text" id="contactName" name="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="contactEmail">Email Address</label>
+          <input type="email" id="contactEmail" name="email" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="contactPhone">Phone (Optional)</label>
+          <input type="tel" id="contactPhone" name="phone" placeholder="(555) 123-4567">
+        </div>
+
+        <div class="form-group">
+          <label for="contactSubject">Subject</label>
+          <input type="text" id="contactSubject" name="subject" required placeholder="How can we help?">
+        </div>
+
+        <div class="form-group">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" rows="6" required placeholder="Tell us what's on your mind..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Send Message</button>
+        <div id="formStatus" class="form-status"></div>
+      </form>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info-wrapper">
+      <h2>Contact Information</h2>
+      
+      <div class="contact-info-card">
+        <div class="info-icon">📍</div>
+        <div class="info-content">
+          <h3>Address</h3>
+          <p>45 Gulshan Avenue<br>Dhaka, 1212<br>Bangladesh</p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="info-icon">📞</div>
+        <div class="info-content">
+          <h3>Phone</h3>
+          <p><a href="tel:+8801712345678">+880 1712 345678</a><br>
+             <span class="hours">Mon-Fri: 8am-10pm</span></p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="info-icon">✉️</div>
+        <div class="info-content">
+          <h3>Email</h3>
+          <p><a href="mailto:info@cafearoma.com">info@cafearoma.com</a><br>
+             <span class="hours">We reply within 24 hours</span></p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="info-icon">🕐</div>
+        <div class="info-content">
+          <h3>Hours</h3>
+          <ul class="hours-list">
+            <li><span>Monday - Friday:</span> 7:00 AM - 9:00 PM</li>
+            <li><span>Saturday:</span> 8:00 AM - 10:00 PM</li>
+            <li><span>Sunday:</span> 8:00 AM - 8:00 PM</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="follow-section">
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="#" class="social-icon" aria-label="Facebook">f</a>
+          <a href="#" class="social-icon" aria-label="Instagram">📷</a>
+          <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="location-section">
+    <h2>Find Us</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.6890652470976!2d90.4128!3d23.8103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c735d6e6e8bd%3A0x1c1c1c1c1c1c1c1c!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1708266600" width="100%" height="400" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Café Aroma</h3>
+      <p>Your daily dose of happiness ☕</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Email: info@cafearoma.com</p>
+      <p>Phone: +880 1712 345678</p>
+      <p>45 Gulshan Avenue, Dhaka</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Café Aroma. All rights reserved.</p>
+  </div>
+</footer>
+
+<script type="module" src="js/contact.js"></script>
+<script type="module" src="js/cart.js"></script>
+<script type="module" src="js/logout.js"></script>
+
+</body>
+</html>
