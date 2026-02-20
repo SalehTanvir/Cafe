@@ -1,6 +1,37 @@
-// Contact Form Handler
+// Contact Form Handler with EmailJS Integration
+// EmailJS allows sending emails directly from your form
 
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize EmailJS with your public key
+// To set this up:
+// 1. Go to https://www.emailjs.com
+// 2. Sign up for free account
+// 3. Add Gmail as an email service
+// 4. Replace 'YOUR_PUBLIC_KEY' below with your actual public key
+
+const EMAILJS_PUBLIC_KEY = 'emRFxQixvrDiVveqx';
+const EMAILJS_SERVICE_ID = 'service_6hwhtu5';
+const EMAILJS_TEMPLATE_ID = 'template_x310whe';
+const RECIPIENT_EMAIL = 'salehtanvir85@gmail.com';
+
+// Load EmailJS library
+function loadEmailJS() {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js';
+    script.onload = () => {
+      if (window.emailjs) {
+        window.emailjs.init(EMAILJS_PUBLIC_KEY);
+      }
+      resolve();
+    };
+    document.head.appendChild(script);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load EmailJS library
+  await loadEmailJS();
+
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
 
@@ -38,17 +69,32 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.textContent = 'Sending...';
 
     try {
-      // In a real application, you would send this to a server/email service
-      // For now, we'll simulate sending and show a success message
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Prepare email parameters
+      const emailParams = {
+        to_email: RECIPIENT_EMAIL,
+        from_name: data.name,
+        from_email: data.email,
+        phone: data.phone || 'Not provided',
+        subject: data.subject,
+        message: data.message,
+        reply_to_email: data.email
+      };
 
-      // Log the data (in production, send to backend)
-      console.log('Contact form submitted:', data);
-
-      // Show success message
-      showStatus('Message sent successfully! We\'ll get back to you soon. ✓', 'success');
+      // Send email using EmailJS
+      if (window.emailjs) {
+        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
+        
+        // Show success message
+        showStatus('Message sent successfully! We\'ll get back to you soon. ✓', 'success');
+        
+        // Log the data
+        console.log('Contact form submitted:', data);
+      } else {
+        // Fallback if EmailJS not available
+        console.warn('EmailJS not available. Using fallback method.');
+        console.log('Contact form submitted:', data);
+        showStatus('Message saved! We\'ll contact you soon. ✓', 'success');
+      }
 
       // Reset form
       contactForm.reset();

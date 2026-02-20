@@ -29,6 +29,18 @@ nav a {
   color: white;
   margin-left: 15px;
   text-decoration: none;
+  padding-bottom: 5px;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+nav a.active {
+  border-bottom-color: #d9a79a;
+  font-weight: 600;
+}
+
+nav a:hover {
+  border-bottom-color: #f3e7df;
 }
 
 .user-display {
