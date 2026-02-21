@@ -64,10 +64,12 @@ function openDetailsModal(item) {
 function createCard(item) {
   const card = document.createElement("div");
   card.className = "menu-card";
+  const description = item.description || "";
   card.innerHTML = `
     <img src="${item.image}" alt="${item.name}">
     <div class="menu-card-body">
       <h3>${item.name}</h3>
+      ${description ? `<p class="menu-card-description">${description}</p>` : ""}
       <div class="menu-card-footer">
         <p>৳${item.price}</p>
         <button class="cart-btn" type="button" aria-label="Add ${item.name} to cart">
