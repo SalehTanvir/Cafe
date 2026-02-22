@@ -5,6 +5,9 @@ import { addToCart } from "./cart-firestore.js";
 
 const menuContainer = document.getElementById("menu-container");
 const menuSearch = document.getElementById("menuSearch");
+const filterType = document.getElementById("filterType");
+const filterPrice = document.getElementById("filterPrice");
+const resetFilters = document.getElementById("resetFilters");
 let menuItems = [];
 let detailsModal = null;
 let modalContent = null;
@@ -117,6 +120,49 @@ function filterMenuItems(query) {
   });
 }
 
+function applyAllFilters() {
+  let filtered = [...menuItems];
+
+  // Apply search filter
+  if (menuSearch && menuSearch.value) {
+    filtered = filterMenuItems(menuSearch.value);
+  }
+
+  // Apply item type filter
+  if (filterType && filterType.value) {
+    filtered = filtered.filter(item => item.type === filterType.value);
+  }
+
+  // Apply price filter
+  if (filterPrice && filterPrice.value) {
+    const priceRange = filterPrice.value;
+    filtered = filtered.filter(item => {
+      const price = item.price;
+      if (priceRange === "0-100") return price < 100;
+      if (priceRange === "100-200") return price >= 100 && price < 200;
+      if (priceRange === "200-300") return price >= 200 && price < 300;
+      if (priceRange === "300+") return price >= 300;
+      return true;
+    });
+  }
+
+  renderMenu(filtered);
+}
+
+function populateTypeFilter() {
+  if (!filterType) return;
+
+  const types = new Set(menuItems.map(item => item.type).filter(Boolean));
+  const sortedTypes = Array.from(types).sort();
+
+  sortedTypes.forEach(type => {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    filterType.appendChild(option);
+  });
+}
+
 async function loadMenu() {
   if (!menuContainer) {
     return;
@@ -125,14 +171,32 @@ async function loadMenu() {
   const querySnapshot = await getDocs(collection(db, "menu"));
 
   menuItems = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  // Populate the type filter dropdown
+  populateTypeFilter();
+  
   renderMenu(menuItems);
 }
 
 loadMenu();
 
 if (menuSearch) {
-  menuSearch.addEventListener("input", (event) => {
-    const filtered = filterMenuItems(event.target.value);
-    renderMenu(filtered);
+  menuSearch.addEventListener("input", applyAllFilters);
+}
+
+if (filterType) {
+  filterType.addEventListener("change", applyAllFilters);
+}
+
+if (filterPrice) {
+  filterPrice.addEventListener("change", applyAllFilters);
+}
+
+if (resetFilters) {
+  resetFilters.addEventListener("click", () => {
+    if (menuSearch) menuSearch.value = "";
+    if (filterType) filterType.value = "";
+    if (filterPrice) filterPrice.value = "";
+    renderMenu(menuItems);
   });
 }

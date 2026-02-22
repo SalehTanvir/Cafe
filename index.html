@@ -40,6 +40,29 @@
   <div class="search-bar">
     <input type="search" id="menuSearch" placeholder="Search coffee, pizza, or burger..." aria-label="Search menu">
   </div>
+  
+  <div class="filter-section">
+    <div class="filter-group">
+      <label for="filterType">Filter by Item:</label>
+      <select id="filterType" aria-label="Filter by item type">
+        <option value="">All Items</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label for="filterPrice">Filter by Price:</label>
+      <select id="filterPrice" aria-label="Filter by price range">
+        <option value="">All Prices</option>
+        <option value="0-100">Under ৳100</option>
+        <option value="100-200">৳100 - ৳200</option>
+        <option value="200-300">৳200 - ৳300</option>
+        <option value="300+">৳300+</option>
+      </select>
+    </div>
+
+    <button type="button" id="resetFilters" class="btn-reset">Reset Filters</button>
+  </div>
+
   <div id="menu-container" class="menu-grid"></div>
 </section>
 
