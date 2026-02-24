@@ -1,0 +1,39 @@
+# Cafe Aroma
+
+A responsive cafe ordering website with a menu browser, cart, and order flow powered by Firebase.
+
+## Features
+- Browse menu items with search and filters
+- Add items to a cart and update quantities
+- Place orders (requires authentication)
+- Firebase Auth, Firestore-backed menu, cart, and orders
+- Admin pages for menu and dashboard management
+
+## Pages
+- Home: index.html
+- Menu: menu.html
+- Order: order.html
+- Auth: login.html, register.html
+- Admin: admin/login.html, admin/dashboard.html, admin/add-menu.html
+
+## Tech Stack
+- HTML, CSS, JavaScript (ES modules)
+- Firebase Auth and Firestore (CDN SDK)
+
+## Firebase Setup
+1. Create a Firebase project and enable Authentication (Email/Password).
+2. Create a Firestore database.
+3. Update the config in js/firebase-config.js with your project keys.
+4. (Optional) Set up Firestore rules for carts and orders.
+
+### Firestore Collections
+- menu: menu items shown on Home and Menu pages
+- carts: user carts stored by uid
+- orders: submitted orders
+
+## Run Locally
+Serve the project with any static server. If you use VS Code, the Live Server extension works well.
+
+## Notes
+- Cart data is stored in Firestore when logged in, and in localStorage for guests.
+- The cart badge updates automatically via cart subscriptions.
