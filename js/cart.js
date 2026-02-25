@@ -1,3 +1,4 @@
+import { onAuthReady } from "./auth.js";
 import { getCart, updateCartItemQuantity, subscribeToCart } from "./cart-firestore.js";
 
 const cartToggle = document.getElementById("cartToggle");
@@ -159,14 +160,17 @@ if (cartToggle) {
   });
 }
 
-// Initialize cart display
-updateCartBadge();
+async function initCart() {
+  await onAuthReady();
+  await updateCartBadge();
 
-// Subscribe to real-time cart updates
-cartUnsubscribe = subscribeToCart((cart) => {
-  updateCartBadge(cart);
-  renderCartPanel(cart);
-});
+  cartUnsubscribe = subscribeToCart((cart) => {
+    updateCartBadge(cart);
+    renderCartPanel(cart);
+  });
+}
+
+initCart();
 
 // Cleanup on page unload
 window.addEventListener("beforeunload", () => {

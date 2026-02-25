@@ -13,7 +13,10 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f8f5f2;
+  background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.7)), url('../assets/images/ai-generative-image-of-cozy-ambience-of-cafe-free-photo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
 }
 
 header {
@@ -61,6 +64,7 @@ nav a:hover {
 .hero {
   text-align: center;
   padding: 100px 20px;
+  color: white;
 }
 
 .btn {
@@ -74,6 +78,7 @@ nav a:hover {
 .home-menu {
   padding: 60px 20px;
   text-align: center;
+  color: white;
 }
 
 .search-bar {
@@ -116,7 +121,7 @@ nav a:hover {
 .filter-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #3e2723;
+  color: white;
 }
 
 .filter-group select {

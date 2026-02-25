@@ -36,7 +36,7 @@
 
 /* Contact Form */
 .contact-form-wrapper h2 {
-  color: #3e2723;
+  color: white;
   font-family: "Playfair Display", serif;
   font-size: 28px;
   margin-top: 0;
@@ -138,7 +138,7 @@
 
 /* Contact Information */
 .contact-info-wrapper h2 {
-  color: #3e2723;
+  color: white;
   font-family: "Playfair Display", serif;
   font-size: 28px;
   margin-top: 0;
@@ -267,7 +267,7 @@
 }
 
 .location-section h2 {
-  color: #3e2723;
+  color: white;
   font-family: "Playfair Display", serif;
   font-size: 28px;
   margin: 0 0 24px;

@@ -8,9 +8,20 @@ const menuSearch = document.getElementById("menuSearch");
 const filterType = document.getElementById("filterType");
 const filterPrice = document.getElementById("filterPrice");
 const resetFilters = document.getElementById("resetFilters");
+const cartCount = document.getElementById("cartCount");
 let menuItems = [];
 let detailsModal = null;
 let modalContent = null;
+
+function updateCartCountBadge(cart) {
+  if (!cartCount) {
+    return;
+  }
+
+  const totalItems = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+  cartCount.textContent = String(totalItems);
+  cartCount.classList.toggle("is-hidden", totalItems === 0);
+}
 
 function ensureDetailsModal() {
   if (detailsModal) {
@@ -57,7 +68,8 @@ function openDetailsModal(item) {
   `;
 
   modalContent.querySelector("#modalOrderBtn").addEventListener("click", async () => {
-    await addToCart(item);
+    const updatedCart = await addToCart(item);
+    updateCartCountBadge(updatedCart);
     window.location.href = "order.html";
   });
 
@@ -87,7 +99,8 @@ function createCard(item) {
   const cartButton = card.querySelector(".cart-btn");
   cartButton.addEventListener("click", async (event) => {
     event.stopPropagation();
-    await addToCart(item);
+    const updatedCart = await addToCart(item);
+    updateCartCountBadge(updatedCart);
   });
 
   card.addEventListener("click", () => openDetailsModal(item));
