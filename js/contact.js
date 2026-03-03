@@ -1,12 +1,4 @@
-// Contact Form Handler with EmailJS Integration
-// EmailJS allows sending emails directly from your form
 
-// Initialize EmailJS with your public key
-// To set this up:
-// 1. Go to https://www.emailjs.com
-// 2. Sign up for free account
-// 3. Add Gmail as an email service
-// 4. Replace 'YOUR_PUBLIC_KEY' below with your actual public key
 
 const EMAILJS_PUBLIC_KEY = 'emRFxQixvrDiVveqx';
 const EMAILJS_SERVICE_ID = 'service_6hwhtu5';
