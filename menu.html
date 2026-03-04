@@ -31,8 +31,55 @@
 
 </header>
 
-<section id="menu-container" class="menu-grid">
-  <!-- Menu loads here -->
+<section id="menu-container" class="menu-single-card">
+  <div class="menu-card-master">
+    <!-- Tabs Navigation -->
+    <div class="menu-tabs-nav">
+      <button class="menu-tab-btn active" data-category="all">All Items</button>
+      <button class="menu-tab-btn" data-category="pizza">🍕 Pizza</button>
+      <button class="menu-tab-btn" data-category="coffee">☕ Coffee</button>
+      <button class="menu-tab-btn" data-category="burger">🍔 Burger</button>
+      <button class="menu-tab-btn" data-category="combo">🎁 Combos</button>
+      <button class="menu-tab-btn" data-category="beverage">🥤 Beverages</button>
+    </div>
+
+    <!-- Sorting & Filter Toolbar -->
+    <div class="menu-toolbar">
+      <div class="toolbar-left">
+        <input type="search" id="menuSearch" placeholder="🔍 Search items..." class="menu-search-input" aria-label="Search menu items">
+      </div>
+      <div class="toolbar-right">
+        <select id="sortMenu" class="sort-dropdown" aria-label="Sort menu items">
+          <option value="name">Sort by Name (A-Z)</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">★ Best Rated</option>
+          <option value="popular">🔥 Most Popular</option>
+        </select>
+        <button id="viewToggle" class="view-toggle-btn" title="Toggle view">
+          <svg viewBox="0 0 24 24" class="grid-icon" aria-hidden="true">
+            <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dietary Filter Tags -->
+    <div class="dietary-filters">
+      <button class="diet-tag" data-diet="all" title="Show all items">All</button>
+      <button class="diet-tag" data-diet="vegetarian" title="Vegetarian items">🥬 Vegetarian</button>
+      <button class="diet-tag" data-diet="vegan" title="Vegan items">🌱 Vegan</button>
+      <button class="diet-tag" data-diet="gluten-free" title="Gluten-free items">🌾 Gluten-Free</button>
+      <button class="diet-tag" data-diet="spicy" title="Spicy items">🌶️ Spicy</button>
+    </div>
+
+    <!-- Menu Items Display -->
+    <div class="menu-items-wrapper">
+      <div id="menu-items-container" class="menu-items-grid">
+        <!-- Items loaded here -->
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -51,8 +98,8 @@
     <div class="footer-section">
       <h4>Contact</h4>
       <p>Email: info@cafearoma.com</p>
-      <p>Phone: (555) 123-4567</p>
-      <p>123 Coffee Street, Bean City</p>
+      <p>Phone: 01752498396</p>
+      <p>123 Gulshan Avenue, Dhaka</p>
     </div>
   </div>
   <div class="footer-bottom">
