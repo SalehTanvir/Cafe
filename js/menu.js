@@ -66,9 +66,9 @@ function createStarHTML(rating) {
 function getBadges(item, index) {
   const badges = [];
   
-  if (item.isNew || index < 3) badges.push('<span class="item-badge new">✨ NEW</span>');
-  if (item.isPopular || Math.random() > 0.7) badges.push('<span class="item-badge popular">🔥 POPULAR</span>');
-  if (item.rating >= 4.7) badges.push('<span class="item-badge bestseller">⭐ BEST SELLER</span>');
+  if (item.isNew || index < 3) badges.push('<span class="item-badge new"><i class="fas fa-sparkles"></i> NEW</span>');
+  if (item.isPopular || Math.random() > 0.7) badges.push('<span class="item-badge popular"><i class="fas fa-fire"></i> POPULAR</span>');
+  if (item.rating >= 4.7) badges.push('<span class="item-badge bestseller"><i class="fas fa-star"></i> BEST SELLER</span>');
   
   return badges.join('');
 }
@@ -112,7 +112,7 @@ function openDetailsModal(item) {
       ${typeLabel}
       <div class="modal-rating">
         <span class="stars">${starRating}</span>
-        <span class="rating-text">${item.rating || 4.5}★ (${item.reviews || Math.floor(Math.random() * 300) + 20} reviews)</span>
+        <span class="rating-text">${item.rating || 4.5}<i class="fas fa-star"></i> (${item.reviews || Math.floor(Math.random() * 300) + 20} reviews)</span>
       </div>
       <p class="menu-modal-price">৳${item.price}</p>
       <p class="menu-modal-description">${description}</p>
@@ -179,7 +179,7 @@ function createItemElement(item, index) {
       <h4 class="item-name">${item.name}</h4>
       <div class="item-rating">
         <span class="stars-small">${starRating}</span>
-        <span class="rating-count">${item.rating || 4.5}★</span>
+        <span class="rating-count">${item.rating || 4.5}<i class="fas fa-star"></i></span>
       </div>
       ${item.description ? `<p class="item-short-desc">${item.description}</p>` : ""}
       ${item.dietary ? `<div class="item-dietary"><span class="diet-badge">${item.dietary}</span></div>` : ""}

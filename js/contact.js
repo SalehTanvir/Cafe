@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
         
         // Show success message
-        showStatus('Message sent successfully! We\'ll get back to you soon. ✓', 'success');
+        showStatus('Message sent successfully! We\'ll get back to you soon.', 'success');
         
         // Log the data
         console.log('Contact form submitted:', data);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Fallback if EmailJS not available
         console.warn('EmailJS not available. Using fallback method.');
         console.log('Contact form submitted:', data);
-        showStatus('Message saved! We\'ll contact you soon. ✓', 'success');
+        showStatus('Message saved! We\'ll contact you soon.', 'success');
       }
 
       // Reset form

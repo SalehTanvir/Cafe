@@ -164,6 +164,11 @@
 .info-icon {
   font-size: 32px;
   flex-shrink: 0;
+  color: #6f4e37;
+}
+
+.info-icon i {
+  color: #6f4e37;
 }
 
 .info-content h3 {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Menu | Café Aroma</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -10,7 +11,7 @@
 
 
 <header class="page-header">
-  <h1>☕ Our Menu</h1>
+  <h1><i class="fas fa-coffee"></i> Our Menu</h1>
   <!-- <img src="assets/images/logo.png" class="logo"> -->
   <nav>
     <a href="index.html">Home</a>
@@ -36,25 +37,25 @@
     <!-- Tabs Navigation -->
     <div class="menu-tabs-nav">
       <button class="menu-tab-btn active" data-category="all">All Items</button>
-      <button class="menu-tab-btn" data-category="pizza">🍕 Pizza</button>
-      <button class="menu-tab-btn" data-category="coffee">☕ Coffee</button>
-      <button class="menu-tab-btn" data-category="burger">🍔 Burger</button>
-      <button class="menu-tab-btn" data-category="combo">🎁 Combos</button>
-      <button class="menu-tab-btn" data-category="beverage">🥤 Beverages</button>
+      <button class="menu-tab-btn" data-category="pizza"><i class="fas fa-pizza-slice"></i> Pizza</button>
+      <button class="menu-tab-btn" data-category="coffee"><i class="fas fa-coffee"></i> Coffee</button>
+      <button class="menu-tab-btn" data-category="burger"><i class="fas fa-burger"></i> Burger</button>
+      <button class="menu-tab-btn" data-category="combo"><i class="fas fa-gift"></i> Combos</button>
+      <button class="menu-tab-btn" data-category="beverage"><i class="fas fa-glass-water"></i> Beverages</button>
     </div>
 
     <!-- Sorting & Filter Toolbar -->
     <div class="menu-toolbar">
       <div class="toolbar-left">
-        <input type="search" id="menuSearch" placeholder="🔍 Search items..." class="menu-search-input" aria-label="Search menu items">
+        <input type="search" id="menuSearch" placeholder="Search items..." class="menu-search-input" aria-label="Search menu items">
       </div>
       <div class="toolbar-right">
         <select id="sortMenu" class="sort-dropdown" aria-label="Sort menu items">
           <option value="name">Sort by Name (A-Z)</option>
           <option value="price-low">Price: Low to High</option>
           <option value="price-high">Price: High to Low</option>
-          <option value="rating">★ Best Rated</option>
-          <option value="popular">🔥 Most Popular</option>
+          <option value="rating"><i class="fas fa-star"></i> Best Rated</option>
+          <option value="popular"><i class="fas fa-fire"></i> Most Popular</option>
         </select>
         <button id="viewToggle" class="view-toggle-btn" title="Toggle view">
           <svg viewBox="0 0 24 24" class="grid-icon" aria-hidden="true">
@@ -67,10 +68,10 @@
     <!-- Dietary Filter Tags -->
     <div class="dietary-filters">
       <button class="diet-tag" data-diet="all" title="Show all items">All</button>
-      <button class="diet-tag" data-diet="vegetarian" title="Vegetarian items">🥬 Vegetarian</button>
-      <button class="diet-tag" data-diet="vegan" title="Vegan items">🌱 Vegan</button>
-      <button class="diet-tag" data-diet="gluten-free" title="Gluten-free items">🌾 Gluten-Free</button>
-      <button class="diet-tag" data-diet="spicy" title="Spicy items">🌶️ Spicy</button>
+      <button class="diet-tag" data-diet="vegetarian" title="Vegetarian items"><i class="fas fa-leaf"></i> Vegetarian</button>
+      <button class="diet-tag" data-diet="vegan" title="Vegan items"><i class="fas fa-seedling"></i> Vegan</button>
+      <button class="diet-tag" data-diet="gluten-free" title="Gluten-free items"><i class="fas fa-wheat"></i> Gluten-Free</button>
+      <button class="diet-tag" data-diet="spicy" title="Spicy items"><i class="fas fa-pepper-hot"></i> Spicy</button>
     </div>
 
     <!-- Menu Items Display -->
@@ -86,7 +87,7 @@
   <div class="footer-content">
     <div class="footer-section">
       <h3>Café Aroma</h3>
-      <p>Your daily dose of happiness ☕</p>
+      <p>Your daily dose of happiness <i class="fas fa-coffee"></i></p>
     </div>
     <div class="footer-section">
       <h4>Quick Links</h4>
