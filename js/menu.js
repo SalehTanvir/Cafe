@@ -2,6 +2,7 @@ import { db } from "./firebase-config.js";
 import { collection, getDocs } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { addToCart } from "./cart-firestore.js";
+import { resolveImageSrc, attachImageFallback } from "./image-utils.js";
 
 const menuContainer = document.getElementById("menu-items-container");
 const cartCount = document.getElementById("cartCount");
@@ -104,9 +105,10 @@ function openDetailsModal(item) {
   const description = item.description || "No description available.";
   const typeLabel = item.type ? `<span class="menu-modal-type">${item.type}</span>` : "";
   const starRating = item.rating ? createStarHTML(item.rating) : createStarHTML(4);
+  const imageSrc = resolveImageSrc(item.image);
 
   modalContent.innerHTML = `
-    <img src="${item.image}" alt="${item.name}">
+    <img src="${imageSrc}" alt="${item.name}">
     <div class="menu-modal-info">
       <h2 id="menuModalTitle">${item.name}</h2>
       ${typeLabel}
@@ -129,6 +131,8 @@ function openDetailsModal(item) {
       </div>
     </div>
   `;
+
+  attachImageFallback(modalContent.querySelector("img"));
 
   const qtyInput = modalContent.querySelector("#quantityInput");
   const minusBtn = modalContent.querySelector("#minusBtn");
@@ -164,13 +168,14 @@ function createItemElement(item, index) {
   itemEl.className = "menu-item";
   const starRating = item.rating ? createStarHTML(item.rating) : createStarHTML(4);
   const badges = getBadges(item, index);
+  const imageSrc = resolveImageSrc(item.image);
   
   itemEl.innerHTML = `
     <div class="item-badges-container">
       ${badges}
     </div>
     <div class="item-image-wrapper">
-      <img src="${item.image}" alt="${item.name}" class="item-image">
+      <img src="${imageSrc}" alt="${item.name}" class="item-image">
       <div class="item-overlay">
         <button class="quick-add-btn" type="button" aria-label="Quick add ${item.name}">Quick Add</button>
       </div>
@@ -193,6 +198,8 @@ function createItemElement(item, index) {
       </div>
     </div>
   `;
+
+  attachImageFallback(itemEl.querySelector(".item-image"));
 
   const cartButton = itemEl.querySelector(".item-cart-btn");
   const quickAddBtn = itemEl.querySelector(".quick-add-btn");

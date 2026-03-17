@@ -1,5 +1,6 @@
 import { onAuthReady } from "./auth.js";
 import { getCart, updateCartItemQuantity, subscribeToCart } from "./cart-firestore.js";
+import { resolveImageSrc, attachImageFallback } from "./image-utils.js";
 
 const cartToggle = document.getElementById("cartToggle");
 const cartCount = document.getElementById("cartCount");
@@ -120,12 +121,13 @@ async function renderCartPanel(cart = null) {
     const quantity = Number(item.quantity) || 0;
     const lineTotal = price * quantity;
     total += lineTotal;
+    const imageSrc = resolveImageSrc(item.image);
 
     const li = document.createElement("li");
     li.dataset.id = item.id;
     li.innerHTML = `
       <div class="cart-panel-item">
-        <img src="${item.image}" alt="${item.name}">
+        <img src="${imageSrc}" alt="${item.name}">
         <div class="cart-panel-info">
           <h4>${item.name}</h4>
           <p>${formatPrice(price)} each</p>
@@ -138,6 +140,7 @@ async function renderCartPanel(cart = null) {
         <div class="cart-panel-price">${formatPrice(lineTotal)}</div>
       </div>
     `;
+    attachImageFallback(li.querySelector("img"));
     cartPanelItems.appendChild(li);
   });
 

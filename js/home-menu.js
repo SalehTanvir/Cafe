@@ -2,6 +2,7 @@ import { db } from "./firebase-config.js";
 import { collection, getDocs } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { addToCart } from "./cart-firestore.js";
+import { resolveImageSrc, attachImageFallback } from "./image-utils.js";
 
 const menuContainer = document.getElementById("menu-container");
 const menuSearch = document.getElementById("menuSearch");
@@ -53,9 +54,10 @@ function openDetailsModal(item) {
   ensureDetailsModal();
   const description = item.description || "No description available.";
   const typeLabel = item.type ? `<span class="menu-modal-type">${item.type}</span>` : "";
+  const imageSrc = resolveImageSrc(item.image);
 
   modalContent.innerHTML = `
-    <img src="${item.image}" alt="${item.name}">
+    <img src="${imageSrc}" alt="${item.name}">
     <div class="menu-modal-info">
       <h2 id="menuModalTitle">${item.name}</h2>
       ${typeLabel}
@@ -66,6 +68,8 @@ function openDetailsModal(item) {
       </div>
     </div>
   `;
+
+  attachImageFallback(modalContent.querySelector("img"));
 
   modalContent.querySelector("#modalOrderBtn").addEventListener("click", async () => {
     const updatedCart = await addToCart(item);
@@ -80,8 +84,9 @@ function createCard(item) {
   const card = document.createElement("div");
   card.className = "menu-card";
   const description = item.description || "";
+  const imageSrc = resolveImageSrc(item.image);
   card.innerHTML = `
-    <img src="${item.image}" alt="${item.name}">
+    <img src="${imageSrc}" alt="${item.name}">
     <div class="menu-card-body">
       <h3>${item.name}</h3>
       ${description ? `<p class="menu-card-description">${description}</p>` : ""}
@@ -95,6 +100,8 @@ function createCard(item) {
       </div>
     </div>
   `;
+
+  attachImageFallback(card.querySelector("img"));
 
   const cartButton = card.querySelector(".cart-btn");
   cartButton.addEventListener("click", async (event) => {

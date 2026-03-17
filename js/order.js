@@ -5,6 +5,7 @@ import {
   addDoc 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getCart, updateCartItemQuantity, clearCart, subscribeToCart } from "./cart-firestore.js";
+import { resolveImageSrc, attachImageFallback } from "./image-utils.js";
 
 const cartItems = document.getElementById("cart-items");
 const cartMessage = document.getElementById("cart-message");
@@ -49,12 +50,13 @@ async function renderCart(cart = null) {
 		const price = Number(item.price) || 0;
 		const lineTotal = quantity * price;
 		total += lineTotal;
+		const imageSrc = resolveImageSrc(item.image);
 
 		const li = document.createElement("li");
 		li.dataset.id = item.id;
 		li.innerHTML = `
 			<div class="cart-row">
-				<img class="cart-row-image" src="${item.image}" alt="${item.name}">
+				<img class="cart-row-image" src="${imageSrc}" alt="${item.name}">
 				<span class="cart-row-name">${item.name}</span>
 				<div class="cart-row-controls">
 					<button type="button" class="cart-qty-btn" data-action="decrease" aria-label="Decrease quantity">-</button>
@@ -64,6 +66,7 @@ async function renderCart(cart = null) {
 				<span class="cart-row-price">${formatPrice(lineTotal)}</span>
 			</div>
 		`;
+		attachImageFallback(li.querySelector("img"));
 		cartItems.appendChild(li);
 	});
 

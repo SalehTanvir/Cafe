@@ -24,7 +24,21 @@ A responsive cafe ordering website with a menu browser, cart, and order flow pow
 1. Create a Firebase project and enable Authentication (Email/Password).
 2. Create a Firestore database.
 3. Update the config in js/firebase-config.js with your project keys.
-4. (Optional) Set up Firestore rules for carts and orders.
+4. Apply the Firestore security rules in firestore.rules. This is required for deployed admin writes.
+
+### Firestore Rules
+- Public users can read menu items.
+- Only admin@cafe.com can create, update, or delete menu items.
+- Users can only read and write their own carts.
+- Users can create and read their own orders; admin can manage all orders.
+
+If you use the Firebase CLI, deploy rules with:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+If you do not use the CLI, copy the contents of firestore.rules into Firestore Rules in the Firebase Console and publish them.
 
 ### Firestore Collections
 - menu: menu items shown on Home and Menu pages

@@ -14,12 +14,29 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { normalizeImageInput, resolveImageSrc, attachImageFallback } from "./image-utils.js";
 
 // Admin email whitelist (only this email can access admin)
 const ADMIN_EMAILS = ["admin@cafe.com"];
 
+function getPermissionErrorMessage() {
+  return "Firestore denied this action. Apply the rules in firestore.rules and sign in with admin@cafe.com.";
+}
+
 function isAdmin(email) {
   return ADMIN_EMAILS.includes(email?.toLowerCase());
+}
+
+function hasActiveAdminSession() {
+  return !!auth.currentUser && isAdmin(auth.currentUser.email);
+}
+
+function getFirestoreActionError(error, fallbackMessage) {
+  if (error?.code === "permission-denied") {
+    return getPermissionErrorMessage();
+  }
+
+  return error?.message || fallbackMessage;
 }
 
 function checkAdminAuth(user) {
@@ -114,9 +131,16 @@ if (addMenuForm) {
   addMenuForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if (!hasActiveAdminSession()) {
+      addMenuStatus.textContent = "Admin session is not ready. Sign in again and retry.";
+      addMenuStatus.className = "auth-status error";
+      return;
+    }
+
     const name = document.getElementById("itemName").value.trim();
     const price = parseFloat(document.getElementById("itemPrice").value);
-    const image = document.getElementById("itemImage").value.trim();
+    const imageInput = document.getElementById("itemImage").value.trim();
+    const image = normalizeImageInput(imageInput);
     const type = document.getElementById("itemType").value;
     const description = document.getElementById("itemDescription").value.trim();
 
@@ -148,7 +172,7 @@ if (addMenuForm) {
         addMenuStatus.textContent = "";
       }, 3000);
     } catch (error) {
-      addMenuStatus.textContent = error.message || "Failed to add item.";
+      addMenuStatus.textContent = getFirestoreActionError(error, "Failed to add item.");
       addMenuStatus.className = "auth-status error";
     }
   });
@@ -190,8 +214,9 @@ function renderAdminMenu(items) {
   items.forEach(item => {
     const row = document.createElement("div");
     row.className = "admin-menu-item";
+    const imageSrc = resolveImageSrc(item.image);
     row.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
+      <img src="${imageSrc}" alt="${item.name}">
       <div>
         <h3>${item.name}</h3>
         <p>${item.type || ""} • ৳${item.price}</p>
@@ -203,12 +228,19 @@ function renderAdminMenu(items) {
       </div>
     `;
 
+    attachImageFallback(row.querySelector("img"));
+
     row.querySelector("[data-action='edit']").addEventListener("click", () => {
       fillEditForm(item);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     row.querySelector("[data-action='delete']").addEventListener("click", async () => {
+      if (!hasActiveAdminSession()) {
+        alert("Admin session is not ready. Sign in again and retry.");
+        return;
+      }
+
       const confirmed = window.confirm(`Delete ${item.name}? This cannot be undone.`);
       if (!confirmed) {
         return;
@@ -218,7 +250,7 @@ function renderAdminMenu(items) {
         await deleteDoc(doc(db, "menu", item.id));
         await loadAdminMenu();
       } catch (error) {
-        alert(error.message || "Failed to delete item.");
+        alert(getFirestoreActionError(error, "Failed to delete item."));
       }
     });
 
@@ -250,10 +282,19 @@ if (editMenuForm) {
   editMenuForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (!hasActiveAdminSession()) {
+      if (editMenuStatus) {
+        editMenuStatus.textContent = "Admin session is not ready. Sign in again and retry.";
+        editMenuStatus.className = "auth-status error";
+      }
+      return;
+    }
+
     const id = document.getElementById("editItemId").value;
     const name = document.getElementById("editItemName").value.trim();
     const price = parseFloat(document.getElementById("editItemPrice").value);
-    const image = document.getElementById("editItemImage").value.trim();
+    const imageInput = document.getElementById("editItemImage").value.trim();
+    const image = normalizeImageInput(imageInput);
     const type = document.getElementById("editItemType").value;
     const description = document.getElementById("editItemDescription").value.trim();
 
@@ -289,7 +330,7 @@ if (editMenuForm) {
       setTimeout(() => setEditCardVisible(false), 1200);
     } catch (error) {
       if (editMenuStatus) {
-        editMenuStatus.textContent = error.message || "Failed to update item.";
+        editMenuStatus.textContent = getFirestoreActionError(error, "Failed to update item.");
         editMenuStatus.className = "auth-status error";
       }
     }
